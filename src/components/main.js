@@ -4,12 +4,22 @@ import "./main.scss";
 
 export default function MainPage() {
   const [argonautesName, setArgonautesName] = useState([]);
+  const [name, setName] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post(`http://localhost:5000/argonautes`, { name: name })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(console.error);
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/argonautes`)
       .then((response) => {
-        console.log(response);
         setArgonautesName(response.data);
       })
       .catch(console.error);
@@ -28,10 +38,21 @@ export default function MainPage() {
       </header>
       <main className="main-part">
         <h2>Ajouter un(e) Argonaute</h2>
-        <form class="new-member-form">
-          <label for="name">Nom de l&apos;Argonaute</label>
-          <input id="name" name="name" type="text" placeholder="Charalampos" />
-          <button type="submit">Envoyer</button>
+        <form className="new-member-form">
+          <label>Nom de l&apos;Argonaute</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Nom"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <div className="button">
+            <button type="submit" onClick={handleSubmit}>
+              Envoyer
+            </button>
+          </div>
         </form>
         <h2>Membres de l'équipage</h2>
         <table>
@@ -39,18 +60,16 @@ export default function MainPage() {
             argonautesName.map((argonautes) => {
               return (
                 <tr>
-                  <td>
-                    {argonautes.name}: {argonautes.age} ans
-                  </td>
+                  <td>{argonautes.name}</td>
                 </tr>
               );
             })}
         </table>
       </main>
 
-      <footer>
+      <div className="footer">
         <p>Réalisé par Jason en Anthestérion de l'an 515 avant JC</p>
-      </footer>
+      </div>
     </div>
   );
 }
