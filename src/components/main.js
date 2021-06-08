@@ -12,6 +12,10 @@ export default function MainPage() {
     event.preventDefault();
     axios
       .post(`http://localhost:5000/argonautes`, { name: name })
+      .then(() => {
+        setName("");
+        window.location.reload();
+      })
       .catch(console.error);
   };
 
@@ -24,43 +28,8 @@ export default function MainPage() {
       .catch(console.error);
   }, []);
 
-  // let argonautesValues = argonautesName.map((values) => {
-  //   return values.name;
-  // });
-
-  // function multipleElements() {
-  //   let elements = [];
-  //   for (let i = 0; argonautesValues.length; i++) {
-  //     elements.push(<div key={i}> element{i + 1}</div>);
-  //     return elements;
-  //   }
-  // }
-  // function separateElement() {
-  //   let separateElement = [];
-  //   let multiElements = multipleElements();
-
-  //   for (let i = 0; i < multiElements.length; i += 3) {
-  //     let oneRow = [];
-  //     oneRow.push(
-  //       multiElements.slice(i, i + 3).map((item) => {
-  //         return <td>{item}</td>;
-  //       })
-  //     );
-  //     separateElement.push(
-  //       oneRow.map((itm) => {
-  //         return <tr>{itm}</tr>;
-  //       })
-  //     );
-  //     return separateElement;
-  //   }
-  // }
-
-  let array1 = argonautesName.map((values) => {
-    return values.name;
-  });
-
   return (
-    <div className="page">
+    <div className="main_page">
       <header>
         <img
           src="http://association-lesargonautes.fr/wp-content/uploads/2017/11/LOGO_ARGONAUTES_2016_OR-271x300.jpg"
@@ -69,7 +38,7 @@ export default function MainPage() {
         />
         <h1 className="main_title">Les Argonautes</h1>
       </header>
-      <main className="main-part">
+      <main>
         <h2>Ajouter un(e) Argonaute</h2>
         <form className="new-member-form">
           <TextField
@@ -93,13 +62,14 @@ export default function MainPage() {
         </form>
         <h2>Membres de l'équipage</h2>
         <div className="argonautes_liste">
-          {array1.map((e) => {
-            return <p className="name">{e}</p>;
-          })}
+          {argonautesName &&
+            argonautesName.map((argonautes) => {
+              return <p className="name">{argonautes.name}</p>;
+            })}
         </div>
       </main>
 
-      <footer className="footer">
+      <footer>
         <a href="https://github.com/BrieucQ">
           <p>Lien GitHub</p>
         </a>

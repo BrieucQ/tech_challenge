@@ -3,8 +3,10 @@ body {
   background-color: #e5d8d0;
   h2 {
     text-align: center;
+    font-family: cursive;
+    font-size: 2em;
   }
-  .page {
+  .main_page {
     height: 100vh;
     width: 100vw;
 
@@ -18,14 +20,15 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 2.5em;
+      font-size: 3.5em;
       width: 100%;
+      font-family: cursive;
     }
 }
 main{
   max-width: 960px;
   margin: 0 auto;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   .new-member-form {
     margin: 2em 0 4em 0;
     text-align: center;
@@ -51,10 +54,9 @@ main{
   }
 }
 
-.footer {
+footer {
   display: flex;
   justify-content: space-around;
-    margin-top: 30px;
   text-align: center;
   color: #fff;
   background: #936a4f;
